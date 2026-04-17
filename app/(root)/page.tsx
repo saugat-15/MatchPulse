@@ -1,4 +1,4 @@
-import Image from "next/image";
+import {Button} from "@/components/ui/button";
 
 export default function Home() {
   return (
@@ -7,9 +7,10 @@ export default function Home() {
         <h1 className="text-6xl font-bold text-center text-gray-900 dark:text-white">
           Real-Time Dashboard
         </h1>
-        <p className="mt-3 text-2xl text-center text-gray-600 dark:text-gray-300">
+        <p className="my-3 text-2xl text-center text-gray-600 dark:text-gray-300">
           A real-time dashboard built with Next.js and WebSockets.
         </p>
+        <Button>Click Me</Button>
       </main>
     </div>
   );
