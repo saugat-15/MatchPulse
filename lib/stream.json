@@ -1,0 +1,22 @@
+{
+  "event": "POINT_UPDATE",
+  "score": {
+    "player1": "40",
+    "player2": "15"
+  },
+  "statsUpdate": {
+    "player1": {
+      "aces": 8,
+      "winners": 19
+    }
+  },
+  "newEvent": {
+    "id": "e3",
+    "timestamp": "2026-04-17T10:01:00Z",
+    "description": "Ace by Djokovic"
+  },
+  "momentumUpdate": {
+    "point": 6,
+    "value": 6
+  }
+}

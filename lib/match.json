@@ -1,0 +1,82 @@
+{
+  "match": {
+    "id": "match_001",
+    "tournament": "Australian Open",
+    "court": "Rod Laver Arena",
+    "status": "LIVE",
+    "currentSet": 2,
+    "elapsedTime": "01:12:34",
+    "surface": "Hard",
+    "round": "Semi-Final",
+    "h2h": { "p1Wins": 14, "p2Wins": 12 }
+  },
+  "players": [
+    {
+      "id": "p1",
+      "name": "Novak Djokovic",
+      "country": "SRB",
+      "score": {
+        "sets": [6, 3],
+        "currentGame": "30"
+      },
+      "stats": {
+        "aces": 7,
+        "winners": 18,
+        "unforcedErrors": 9,
+        "firstServePct": 68,
+        "breakPointsWon": "2/4",
+        "doubleFaults": 2,
+        "firstServePointsWon": 74,
+        "secondServePointsWon": 55,
+        "returnPointsWon": 43,
+        "netPointsWon": "8/11",
+        "avgServeSpeed": 187,
+        "maxServeSpeed": 214,
+        "totalPointsWon": 68
+      }
+    },
+    {
+      "id": "p2",
+      "name": "Carlos Alcaraz",
+      "country": "ESP",
+      "score": {
+        "sets": [4, 4],
+        "currentGame": "15"
+      },
+      "stats": {
+        "aces": 5,
+        "winners": 15,
+        "unforcedErrors": 11,
+        "firstServePct": 64,
+        "breakPointsWon": "1/3",
+        "doubleFaults": 3,
+        "firstServePointsWon": 71,
+        "secondServePointsWon": 51,
+        "returnPointsWon": 47,
+        "netPointsWon": "6/9",
+        "avgServeSpeed": 182,
+        "maxServeSpeed": 208,
+        "totalPointsWon": 61
+      }
+    }
+  ],
+  "momentum": [
+    { "point": 1, "value": 2 },
+    { "point": 2, "value": 4 },
+    { "point": 3, "value": -1 },
+    { "point": 4, "value": 3 },
+    { "point": 5, "value": 5 }
+  ],
+  "events": [
+    {
+      "id": "e1",
+      "timestamp": "2026-04-17T10:00:00Z",
+      "description": "Ace by Djokovic"
+    },
+    {
+      "id": "e2",
+      "timestamp": "2026-04-17T10:00:10Z",
+      "description": "Winner by Alcaraz"
+    }
+  ]
+}

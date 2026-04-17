@@ -1,0 +1,163 @@
+import type { MatchListItem } from '@/types/tennis';
+
+export const MATCH_LIST: MatchListItem[] = [
+  // ── Men's Singles ────────────────────────────────────────────────────────────
+  {
+    id: 'ms-sf-1',
+    tournament: 'Australian Open',
+    surface: 'Hard',
+    round: "Men's Semi-Final",
+    court: 'Rod Laver Arena',
+    status: 'LIVE',
+    startTime: '2026-01-27T08:00:00Z',
+    players: [
+      { name: 'N. Djokovic', country: 'SRB', seed: 2, sets: [6, 3], currentGame: '30' },
+      { name: 'C. Alcaraz', country: 'ESP', seed: 3, sets: [4, 4], currentGame: '15' },
+    ],
+  },
+  {
+    id: 'ms-sf-2',
+    tournament: 'Australian Open',
+    surface: 'Hard',
+    round: "Men's Semi-Final",
+    court: 'Melbourne Arena',
+    status: 'COMPLETED',
+    startTime: '2026-01-26T09:00:00Z',
+    players: [
+      { name: 'J. Sinner', country: 'ITA', seed: 1, sets: [7, 6, 6], currentGame: '' },
+      { name: 'A. Zverev', country: 'GER', seed: 4, sets: [6, 3, 4], currentGame: '' },
+    ],
+  },
+  {
+    id: 'ms-f-1',
+    tournament: 'Australian Open',
+    surface: 'Hard',
+    round: "Men's Final",
+    court: 'Rod Laver Arena',
+    status: 'UPCOMING',
+    startTime: '2026-01-29T08:00:00Z',
+    players: [
+      { name: 'N. Djokovic', country: 'SRB', seed: 2, sets: [], currentGame: '' },
+      { name: 'J. Sinner', country: 'ITA', seed: 1, sets: [], currentGame: '' },
+    ],
+  },
+  {
+    id: 'ms-qf-1',
+    tournament: 'Australian Open',
+    surface: 'Hard',
+    round: "Men's Quarter-Final",
+    court: 'Rod Laver Arena',
+    status: 'COMPLETED',
+    startTime: '2026-01-24T08:00:00Z',
+    players: [
+      { name: 'N. Djokovic', country: 'SRB', seed: 2, sets: [6, 6, 6], currentGame: '' },
+      { name: 'D. Medvedev', country: 'RUS', seed: 5, sets: [3, 4, 2], currentGame: '' },
+    ],
+  },
+  {
+    id: 'ms-qf-2',
+    tournament: 'Australian Open',
+    surface: 'Hard',
+    round: "Men's Quarter-Final",
+    court: 'Melbourne Arena',
+    status: 'COMPLETED',
+    startTime: '2026-01-24T11:00:00Z',
+    players: [
+      { name: 'C. Alcaraz', country: 'ESP', seed: 3, sets: [7, 6, 4, 6], currentGame: '' },
+      { name: 'T. Fritz', country: 'USA', seed: 8, sets: [6, 3, 6, 2], currentGame: '' },
+    ],
+  },
+  {
+    id: 'ms-qf-3',
+    tournament: 'Australian Open',
+    surface: 'Hard',
+    round: "Men's Quarter-Final",
+    court: 'John Cain Arena',
+    status: 'COMPLETED',
+    startTime: '2026-01-23T08:00:00Z',
+    players: [
+      { name: 'J. Sinner', country: 'ITA', seed: 1, sets: [6, 7, 6], currentGame: '' },
+      { name: 'T. Paul', country: 'USA', seed: 12, sets: [4, 5, 3], currentGame: '' },
+    ],
+  },
+  {
+    id: 'ms-qf-4',
+    tournament: 'Australian Open',
+    surface: 'Hard',
+    round: "Men's Quarter-Final",
+    court: 'John Cain Arena',
+    status: 'COMPLETED',
+    startTime: '2026-01-23T12:00:00Z',
+    players: [
+      { name: 'A. Zverev', country: 'GER', seed: 4, sets: [6, 3, 6, 6], currentGame: '' },
+      { name: 'F. Tiafoe', country: 'USA', seed: 16, sets: [4, 6, 4, 3], currentGame: '' },
+    ],
+  },
+
+  // ── Women's Singles ──────────────────────────────────────────────────────────
+  {
+    id: 'ws-sf-1',
+    tournament: 'Australian Open',
+    surface: 'Hard',
+    round: "Women's Semi-Final",
+    court: 'Rod Laver Arena',
+    status: 'COMPLETED',
+    startTime: '2026-01-25T07:00:00Z',
+    players: [
+      { name: 'A. Sabalenka', country: 'BLR', seed: 1, sets: [6, 7], currentGame: '' },
+      { name: 'I. Swiatek', country: 'POL', seed: 2, sets: [3, 5], currentGame: '' },
+    ],
+  },
+  {
+    id: 'ws-sf-2',
+    tournament: 'Australian Open',
+    surface: 'Hard',
+    round: "Women's Semi-Final",
+    court: 'Melbourne Arena',
+    status: 'COMPLETED',
+    startTime: '2026-01-25T11:00:00Z',
+    players: [
+      { name: 'C. Gauff', country: 'USA', seed: 3, sets: [6, 7], currentGame: '' },
+      { name: 'E. Rybakina', country: 'KAZ', seed: 4, sets: [4, 6], currentGame: '' },
+    ],
+  },
+  {
+    id: 'ws-f-1',
+    tournament: 'Australian Open',
+    surface: 'Hard',
+    round: "Women's Final",
+    court: 'Rod Laver Arena',
+    status: 'UPCOMING',
+    startTime: '2026-01-28T08:00:00Z',
+    players: [
+      { name: 'A. Sabalenka', country: 'BLR', seed: 1, sets: [], currentGame: '' },
+      { name: 'C. Gauff', country: 'USA', seed: 3, sets: [], currentGame: '' },
+    ],
+  },
+  {
+    id: 'ws-qf-1',
+    tournament: 'Australian Open',
+    surface: 'Hard',
+    round: "Women's Quarter-Final",
+    court: 'Rod Laver Arena',
+    status: 'COMPLETED',
+    startTime: '2026-01-22T07:00:00Z',
+    players: [
+      { name: 'A. Sabalenka', country: 'BLR', seed: 1, sets: [6, 6], currentGame: '' },
+      { name: 'J. Paolini', country: 'ITA', seed: 9, sets: [2, 3], currentGame: '' },
+    ],
+  },
+  {
+    id: 'ws-qf-2',
+    tournament: 'Australian Open',
+    surface: 'Hard',
+    round: "Women's Quarter-Final",
+    court: 'Melbourne Arena',
+    status: 'COMPLETED',
+    startTime: '2026-01-22T10:00:00Z',
+    players: [
+      { name: 'C. Gauff', country: 'USA', seed: 3, sets: [7, 6], currentGame: '' },
+      { name: 'M. Andreeva', country: 'RUS', seed: 14, sets: [5, 4], currentGame: '' },
+    ],
+  },
+];

@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Signalist",
-  description: "Track real-time stock prices, get personalised alerts and explore detailed company insights.",
+  title: "MatchPulse",
+  description: "Real-time tennis match dashboard — live scores, momentum, and in-depth match statistics.",
 };
 
 export default function RootLayout({
