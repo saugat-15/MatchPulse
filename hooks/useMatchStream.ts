@@ -5,10 +5,14 @@ import type { MatchSnapshot } from '@/types/tennis';
 
 type StreamStatus = 'connecting' | 'live' | 'reconnecting';
 
+const MAX_RETRIES = 10;
+const BASE_RETRY_MS = 1000;
+
 export function useMatchStream() {
   const [data, setData] = useState<MatchSnapshot | null>(null);
   const [status, setStatus] = useState<StreamStatus>('connecting');
   const retryTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const retryCount = useRef(0);
 
   useEffect(() => {
     let es: EventSource;
@@ -31,6 +35,7 @@ export function useMatchStream() {
       es = new EventSource('/api/stream');
 
       es.onopen = () => {
+        retryCount.current = 0;
         setStatus('live');
       };
 
@@ -41,10 +46,11 @@ export function useMatchStream() {
 
       es.onerror = () => {
         es.close();
+        if (retryCount.current >= MAX_RETRIES) return;
         setStatus('reconnecting');
-        retryTimeout.current = setTimeout(() => {
-          connect();
-        }, 3000);
+        const delay = Math.min(BASE_RETRY_MS * 2 ** retryCount.current, 30000);
+        retryCount.current += 1;
+        retryTimeout.current = setTimeout(connect, delay);
       };
     }
 
