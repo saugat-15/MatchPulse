@@ -72,7 +72,7 @@ function mapFixtureToSnapshot(fixture: ApiFixture): MatchSnapshot {
 // Module-level cache — persists for the lifetime of the Node.js process.
 // In dev this means one fetch per server restart; in production one fetch per instance.
 let cached: { data: MatchSnapshot; fetchedAt: number } | null = null;
-const TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
+const TTL_MS = 60 * 1000; // 60 seconds
 
 export async function getMatchSnapshot(): Promise<MatchSnapshot> {
     if (cached && Date.now() - cached.fetchedAt < TTL_MS) {

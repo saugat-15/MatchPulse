@@ -49,21 +49,28 @@ function randomizeSnapshot(base: MatchSnapshot): MatchSnapshot {
 }
 
 export async function GET(request: Request) {
+    let base: MatchSnapshot;
+    try {
+        base = await getMatchSnapshot();
+    } catch (err) {
+        console.error('[stream] failed to load snapshot', err);
+        return new Response('Failed to initialize stream', { status: 500 });
+    }
+
     const headers = {
         'Content-Type': 'text/event-stream',
         'Cache-Control': 'no-cache',
         Connection: 'keep-alive',
     };
     const encoder = new TextEncoder();
-
-    // Load base snapshot once (from API-Sports cache or mock)
-    const base = await getMatchSnapshot();
+    let seq = 0;
 
     const stream = new ReadableStream({
         start(controller) {
             const send = (payload: MatchSnapshot) => {
+                seq += 1;
                 controller.enqueue(
-                    encoder.encode(`data: ${JSON.stringify(payload)}\n\n`)
+                    encoder.encode(`id: ${seq}\ndata: ${JSON.stringify(payload)}\n\n`)
                 );
             };
             const tick = () => send(randomizeSnapshot(base));

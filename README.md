@@ -4,10 +4,10 @@ Production-style tennis operations dashboard built with Next.js App Router, Serv
 
 This project is intentionally shaped to reflect real-world sports dashboard constraints:
 
-* live UX expectations
-* noisy / incomplete feed data
-* strict external API request limits
-* clear separation between snapshot data and stream updates
+- live UX expectations
+- noisy / incomplete feed data
+- strict external API request limits
+- clear separation between snapshot data and stream updates
 
 ---
 
@@ -17,30 +17,30 @@ This app is built as a portfolio project where reliability, clarity, and product
 
 The goal is not just chart rendering. The goal is to demonstrate:
 
-* realtime state handling
-* resilient fallback behavior
-* scalable architecture decisions under data constraints
-* a user-facing interface that feels like a real sports product
+- realtime state handling
+- resilient fallback behavior
+- scalable architecture decisions under data constraints
+- a user-facing interface that feels like a real sports product
 
 ---
 
 ## Core Features
 
-* Live dashboard with SSE updates (`/api/stream`)
-* One-time snapshot bootstrap (`/api/match-snapshot`)
-* Extended live rail with mock fallback (`/api/matches`)
-* Search and Watchlist pages driven by route-level navigation
-* Match cards, event timeline, and chart sections for match intelligence
-* Reconnect-aware stream hook (`connecting`, `live`, `reconnecting`)
-* Local watchlist persistence via `localStorage`
+- Live dashboard with SSE updates (`/api/stream`)
+- One-time snapshot bootstrap (`/api/match-snapshot`)
+- Extended live rail with mock fallback (`/api/matches`)
+- Search and Watchlist pages driven by route-level navigation
+- Match cards, event timeline, and chart sections for match intelligence
+- Reconnect-aware stream hook (`connecting`, `live`, `reconnecting`)
+- Local watchlist persistence via `localStorage`
 
 ---
 
 ## Product Pages
 
-* `/` Dashboard: live match center, live rail, analytics, events
-* `/search` Match discovery and filtering
-* `/watchlist` Saved matches feed
+- `/` Dashboard: live match center, live rail, analytics, events
+- `/search` Match discovery and filtering
+- `/watchlist` Saved matches feed
 
 ---
 
@@ -61,7 +61,31 @@ This approach keeps the product realistic while respecting strict API budgets.
 
 ## Architecture Overview
 
-### System Architecture
+```mermaid
+flowchart LR
+  U[User Browser] --> P[App Router Pages<br/>/, /search, /watchlist]
+  P --> HS[useMatchStream hook]
+  P --> HM[useMatches hook]
+  P --> WL[watchlistStorage<br/>localStorage]
+
+  HS --> S1[/GET /api/match-snapshot/]
+  HS --> S2[/SSE /api/stream/]
+  HM --> S3[/GET /api/matches/]
+
+  S1 --> DC[dataCache.getMatchSnapshot]
+  S2 --> DC
+  S3 --> ML[matchList seed data]
+  S3 --> DC
+
+  DC --> EXT[(API-Sports Tennis API)]
+  DC --> MOCK[(lib/match.json fallback)]
+  S2 --> RAND[randomizeSnapshot per tick]
+
+  P --> UI[MatchCard + Charts + Timeline]
+  UI --> WL
+```
+
+### Frontend
 
 ```mermaid
 graph TD
@@ -208,41 +232,41 @@ If no key is provided (or live fetch fails), the app falls back to local mock sn
 
 ## API Endpoints
 
-| Endpoint | Description |
-|---|---|
-| `GET /api/match-snapshot` | Returns one cached `MatchSnapshot` object |
-| `GET /api/stream` | Returns `text/event-stream` updates for dashboard live state |
-| `GET /api/matches` | Returns match cards for live/upcoming/completed sections with dedup and mock backfill |
+| Endpoint                  | Description                                                                           |
+| ------------------------- | ------------------------------------------------------------------------------------- |
+| `GET /api/match-snapshot` | Returns one cached `MatchSnapshot` object                                             |
+| `GET /api/stream`         | Returns `text/event-stream` updates for dashboard live state                          |
+| `GET /api/matches`        | Returns match cards for live/upcoming/completed sections with dedup and mock backfill |
 
 ---
 
 ## Senior-Level Engineering Decisions Demonstrated
 
-* Clear boundary between snapshot retrieval and stream transport
-* Quota-aware API integration with graceful fallback
-* Typed domain model shared between API routes and UI
-* Connection-state-aware UX for real-time feed handling (`connecting`, `live`, `reconnecting`)
-* Dedicated hooks for stream and list data access
+- Clear boundary between snapshot retrieval and stream transport
+- Quota-aware API integration with graceful fallback
+- Typed domain model shared between API routes and UI
+- Connection-state-aware UX for real-time feed handling (`connecting`, `live`, `reconnecting`)
+- Dedicated hooks for stream and list data access
 
 ---
 
 ## Tech Stack
 
-* **Framework:** Next.js (App Router)
-* **Language:** TypeScript
-* **Styling:** Tailwind CSS
-* **Charts:** Recharts
-* **Icons:** Lucide Icons
-* **Transport:** Server-Sent Events (SSE)
+- **Framework:** Next.js (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **Charts:** Recharts
+- **Icons:** Lucide Icons
+- **Transport:** Server-Sent Events (SSE)
 
 ---
 
 ## Next Improvements
 
-* Add event IDs and resume support (`Last-Event-ID`) for stream recovery
-* Add sequence/version handling to guard against stale updates
-* Add tests for merge logic and route-level live card generation
-* Add observability hooks for connection count and stream errors
+- Add event IDs and resume support (`Last-Event-ID`) for stream recovery
+- Add sequence/version handling to guard against stale updates
+- Add tests for merge logic and route-level live card generation
+- Add observability hooks for connection count and stream errors
 
 ---
 
@@ -250,16 +274,16 @@ If no key is provided (or live fetch fails), the app falls back to local mock sn
 
 This repository is built to showcase how I approach real-time sports products:
 
-* balancing UX with operational constraints
-* building for reliability under imperfect data
-* structuring code for maintainability and scale
+- balancing UX with operational constraints
+- building for reliability under imperfect data
+- structuring code for maintainability and scale
 
 If you are evaluating for a live dashboard, start with:
 
-* `app/(root)/page.tsx`
-* `hooks/useMatchStream.ts`
-* `app/api/stream/route.ts`
-* `app/api/matches/route.ts`
+- `app/(root)/page.tsx`
+- `hooks/useMatchStream.ts`
+- `app/api/stream/route.ts`
+- `app/api/matches/route.ts`
 
 ---
 
