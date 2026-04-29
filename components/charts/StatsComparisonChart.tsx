@@ -1,4 +1,4 @@
-import { BarChart, Bar, XAxis, YAxis } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, ReferenceLine } from 'recharts';
 import {
   ChartContainer,
   ChartTooltip,
@@ -33,6 +33,10 @@ export function StatsComparisonChart({ p1, p2 }: { p1: Player; p2: Player }) {
     p1Raw: p1.stats[key] as number,
     p2Raw: p2.stats[key] as number,
   }));
+  const maxAbsValue = Math.max(
+    ...data.flatMap((row) => [Math.abs(row.p1), Math.abs(row.p2)]),
+    1
+  );
 
   return (
     <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-5">
@@ -50,8 +54,10 @@ export function StatsComparisonChart({ p1, p2 }: { p1: Player; p2: Player }) {
         >
           <XAxis
             type="number"
+            domain={[-maxAbsValue, maxAbsValue]}
             tick={{ fontSize: 10 }}
             tickFormatter={(v) => String(Math.abs(v))}
+            allowDecimals={false}
           />
           <YAxis
             type="category"
@@ -59,6 +65,7 @@ export function StatsComparisonChart({ p1, p2 }: { p1: Player; p2: Player }) {
             tick={{ fontSize: 10 }}
             width={80}
           />
+          <ReferenceLine x={0} stroke="#52525b" />
           <ChartTooltip
             content={
               <ChartTooltipContent
@@ -70,8 +77,8 @@ export function StatsComparisonChart({ p1, p2 }: { p1: Player; p2: Player }) {
               />
             }
           />
-          <Bar dataKey="p1" stackId="a" fill={config.p1.color} radius={[4, 0, 0, 4]} isAnimationActive={false} />
-          <Bar dataKey="p2" stackId="a" fill={config.p2.color} radius={[0, 4, 4, 0]} isAnimationActive={false} />
+          <Bar dataKey="p1" fill={config.p1.color} radius={[4, 0, 0, 4]} isAnimationActive={false} />
+          <Bar dataKey="p2" fill={config.p2.color} radius={[0, 4, 4, 0]} isAnimationActive={false} />
         </BarChart>
       </ChartContainer>
     </div>

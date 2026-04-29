@@ -16,7 +16,7 @@ import { EventTimeline } from '@/components/EventTimeline';
 import { readWatchlist, writeWatchlist } from '@/lib/watchlistStorage';
 
 export default function Home() {
-  const { data, status } = useMatchStream();
+  const { data, status, isSlowLoading } = useMatchStream();
   const { matches, loading: matchesLoading } = useMatches();
   const [savedIds, setSavedIds] = useState<string[]>(readWatchlist);
   const liveMatches = useMemo(
@@ -43,7 +43,11 @@ export default function Home() {
   if (!data) {
     return (
       <div className="flex flex-1 items-center justify-center text-zinc-500 text-sm">
-        {status === 'reconnecting' ? 'Reconnecting...' : 'Connecting to live stream...'}
+        {status === 'reconnecting'
+          ? 'Reconnecting...'
+          : isSlowLoading
+            ? 'Live stream is delayed. Loading latest snapshot...'
+            : 'Connecting to live stream...'}
       </div>
     );
   }
@@ -77,8 +81,16 @@ export default function Home() {
         <section className="xl:col-span-2 grid grid-cols-1 gap-4 lg:grid-cols-3">
           <div className="rounded-xl border border-zinc-800 bg-zinc-900 px-4 py-3 text-xs text-zinc-400 lg:col-span-3">
             Stream status:{' '}
-            <span className={status === 'live' ? 'text-emerald-400' : 'text-yellow-400'}>
-              {status === 'live' ? 'LIVE' : 'RECONNECTING'}
+            <span
+              className={
+                status === 'live'
+                  ? 'text-emerald-400'
+                  : status === 'reconnecting'
+                    ? 'text-amber-400'
+                    : 'text-zinc-300'
+              }
+            >
+              {status === 'live' ? 'LIVE' : status === 'reconnecting' ? 'RECONNECTING' : 'CONNECTING'}
             </span>
           </div>
 

@@ -7,16 +7,21 @@ type StreamStatus = 'connecting' | 'live' | 'reconnecting';
 
 const MAX_RETRIES = 10;
 const BASE_RETRY_MS = 1000;
+const SLOW_LOAD_THRESHOLD_MS = 5000;
 
 export function useMatchStream() {
   const [data, setData] = useState<MatchSnapshot | null>(null);
   const [status, setStatus] = useState<StreamStatus>('connecting');
+  const [isSlowLoading, setIsSlowLoading] = useState(false);
   const retryTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const retryCount = useRef(0);
 
   useEffect(() => {
     let es: EventSource;
     let isMounted = true;
+    const slowLoadTimer = setTimeout(() => {
+      if (isMounted) setIsSlowLoading(true);
+    }, SLOW_LOAD_THRESHOLD_MS);
 
     async function loadInitialSnapshot() {
       try {
@@ -25,6 +30,7 @@ export function useMatchStream() {
         const snapshot = (await response.json()) as MatchSnapshot;
         if (isMounted) {
           setData(snapshot);
+          setIsSlowLoading(false);
         }
       } catch {
         // Keep silent; SSE stream will still attempt to connect.
@@ -41,6 +47,7 @@ export function useMatchStream() {
 
       es.onmessage = (event) => {
         setData(JSON.parse(event.data) as MatchSnapshot);
+        setIsSlowLoading(false);
         setStatus('live');
       };
 
@@ -61,8 +68,9 @@ export function useMatchStream() {
       isMounted = false;
       es?.close();
       if (retryTimeout.current) clearTimeout(retryTimeout.current);
+      clearTimeout(slowLoadTimer);
     };
   }, []);
 
-  return { data, status };
+  return { data, status, isSlowLoading };
 }
