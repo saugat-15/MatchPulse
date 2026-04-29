@@ -13,8 +13,10 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 function parseBreakPoints(bp: string): { converted: number; missed: number } {
-  const [won, total] = bp.split('/').map(Number);
-  return { converted: won ?? 0, missed: (total ?? 0) - (won ?? 0) };
+  const [wonRaw, totalRaw] = bp.split('/').map(Number);
+  const converted = Number.isFinite(wonRaw) ? Math.max(wonRaw, 0) : 0;
+  const total = Number.isFinite(totalRaw) ? Math.max(totalRaw, converted) : converted;
+  return { converted, missed: Math.max(total - converted, 0) };
 }
 
 export function BreakPointsChart({ p1, p2 }: { p1: Player; p2: Player }) {

@@ -10,6 +10,12 @@ function randomGameScore(): string {
     return scores[randomInt(0, scores.length - 1)] ?? '0';
 }
 
+function randomBreakPointsWon(): string {
+    const converted = randomInt(0, 4);
+    const opportunities = randomInt(converted, 6);
+    return `${converted}/${opportunities}`;
+}
+
 function randomizeSnapshot(base: MatchSnapshot): MatchSnapshot {
     return {
         ...base,
@@ -30,7 +36,7 @@ function randomizeSnapshot(base: MatchSnapshot): MatchSnapshot {
                 winners: randomInt(8, 35),
                 unforcedErrors: randomInt(4, 22),
                 firstServePct: randomInt(52, 82),
-                breakPointsWon: `${randomInt(0, 4)}/${randomInt(1, 6)}`,
+                breakPointsWon: randomBreakPointsWon(),
                 doubleFaults: randomInt(0, 6),
                 firstServePointsWon: randomInt(60, 82),
                 secondServePointsWon: randomInt(42, 65),

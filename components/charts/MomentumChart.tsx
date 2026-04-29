@@ -19,12 +19,12 @@ const chartConfig = {
   p2: { label: 'Alcaraz', color: '#f97316' },
 } satisfies ChartConfig;
 
-// Split each point into p1 (positive side) and p2 (negative side) for two-tone fill
+// Mirror momentum so each player has an explicit trend line per point.
 function toChartData(momentum: MomentumPoint[]) {
   return momentum.map((m) => ({
     point: m.point,
-    p1: m.value > 0 ? m.value : 0,
-    p2: m.value < 0 ? m.value : 0,
+    p1: m.value,
+    p2: -m.value,
   }));
 }
 
